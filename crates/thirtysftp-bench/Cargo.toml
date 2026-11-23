@@ -1,0 +1,19 @@
+[package]
+name = "thirtysftp-bench"
+description = "Throughput measurements for thirtysftp (not published)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[dependencies]
+bytes = { workspace = true }
+data-encoding = "2"
+thirtysftp = { path = "../thirtysftp" }
+thirtyssh = { workspace = true }
+tokio = { workspace = true, features = ["io-util", "macros", "net", "rt-multi-thread", "sync", "time"] }

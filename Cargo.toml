@@ -1,0 +1,30 @@
+[workspace]
+members = ["crates/thirtysftp", "crates/thirtysftp-bench"]
+# Fuzz targets need nightly and cargo-fuzz; see fuzz/Cargo.toml.
+exclude = ["fuzz"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.89"
+license = "Apache-2.0"
+repository = "https://github.com/thirtyfile/ThirtySFTP"
+authors = ["ThirtySFTP contributors"]
+keywords = ["sftp", "ssh", "async", "tokio"]
+categories = ["network-programming", "asynchronous", "filesystem"]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+dbg_macro = "warn"
+todo = "warn"
+unimplemented = "warn"
+undocumented_unsafe_blocks = "warn"
+
+[workspace.dependencies]
+bytes = "1"
+thirtyssh = "0.2"
+tokio = "1"

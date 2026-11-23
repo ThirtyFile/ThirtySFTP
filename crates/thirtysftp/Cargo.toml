@@ -1,0 +1,44 @@
+[package]
+name = "thirtysftp"
+description = "Asynchronous SFTP client and server library for Tokio"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
+documentation = "https://docs.rs/thirtysftp"
+authors.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[features]
+default = ["client", "server", "thirtyssh"]
+client = []
+server = ["dep:rustix"]
+# Glue to the `thirtyssh` crate: open SFTP over an SSH channel, and serve the
+# `sftp` subsystem from an SSH server. The protocol core does not need it.
+thirtyssh = ["dep:thirtyssh"]
+
+[lints]
+workspace = true
+
+[dependencies]
+bytes = { workspace = true }
+thirtyssh = { workspace = true, optional = true }
+tokio = { workspace = true, features = ["io-util", "rt", "sync", "time"] }
+
+[target.'cfg(unix)'.dependencies]
+rustix = { version = "1", optional = true, default-features = false, features = ["std", "fs"] }
+
+[dev-dependencies]
+data-encoding = "2"
+tokio = { workspace = true, features = ["io-util", "macros", "io-std", "net", "process", "rt", "rt-multi-thread", "time"] }
+
+[[example]]
+name = "sftp_stdio"
+required-features = ["server"]
+
+[[example]]
+name = "sftp_server"
+required-features = ["server", "thirtyssh"]
