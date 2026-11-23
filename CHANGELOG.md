@@ -6,6 +6,10 @@ follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-23
+
+First release.
+
 ### Added
 - Project skeleton: workspace, lint settings, CI, release workflow and
   `cargo-deny` configuration.
