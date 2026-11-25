@@ -105,3 +105,22 @@ jobs:
       - uses: rustsec/audit-check@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  # The one check the branch rules require: it passes only when every job
+  # above passed, so the rules need no list of job names to keep in step.
+  passed:
+    name: Checks passed
+    if: always()
+    needs: [check, msrv, features, interop, deny, audit]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every job succeeded
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "results: $RESULTS"
+          for result in $RESULTS; do
+            if [ "$result" != success ]; then
+              exit 1
+            fi
+          done
